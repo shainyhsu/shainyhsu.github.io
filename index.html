@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant"><head><meta charset="utf-8">
+<html lang="zh-Hant"><head><meta charset="utf-8"><script>(function(){var t="dark";try{t=localStorage.getItem("theme")||"dark"}catch(e){}document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")})()</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Shainy Hsu 的小工具｜登山、航空、檔案轉換</title>
 <meta name="description" content="Shainy Hsu 製作的免費網頁工具：登山步程試算、上山籌碼評估、G550 Jet A 加油計算、BTC／黃金匯率、檔案轉 Markdown。">
@@ -17,11 +17,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://shainyhsu.github.io/og.png">
 <meta name="twitter:image:alt" content="Tools by Shainy Hsu: Forest MD Converter, Hiking Time Estimator, Leverage Check, BTC and Gold Live Rates, Jet A Fuel Calculator">
-<style>body{margin:0;background:#faf9f5;color:#141413;font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif}main{max-width:640px;margin:0 auto;padding:64px 24px}h1{font-size:28px;font-weight:600;margin:0 0 32px}ul{list-style:none;padding:0;margin:0}li a{display:block;padding:20px 0;border-top:1px solid #e6e3da;color:inherit;text-decoration:none}li a:hover strong{text-decoration:underline}strong{display:block;font-weight:600}span{color:#6b6a65;font-size:15px}footer{margin-top:48px;color:#9a978e;font-size:13px}</style>
-</head><body><main><h1>Shainy Hsu 的小工具</h1><ul>
+<style>:root{color-scheme:dark;--bg:#0f1411;--text:#e4ebe6;--muted:#9aa79f;--faint:#87958c;--line:#2a352e;--card:#172019}[data-theme="light"]{color-scheme:light;--bg:#faf9f5;--text:#141413;--muted:#6b6a65;--faint:#9a978e;--line:#e6e3da;--card:#ffffff}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif}main{position:relative;max-width:640px;margin:0 auto;padding:64px 24px}h1{font-size:28px;font-weight:600;margin:0 0 32px;padding-right:52px}ul{list-style:none;padding:0;margin:0}li a{display:block;padding:20px 0;border-top:1px solid var(--line);color:inherit;text-decoration:none}li a:hover strong{text-decoration:underline}strong{display:block;font-weight:600}span{color:var(--muted);font-size:15px}footer{margin-top:48px;color:var(--faint);font-size:13px}.theme-toggle{position:absolute;top:68px;right:24px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}.theme-toggle:hover{border-color:var(--muted)}.theme-toggle svg{width:19px;height:19px}</style>
+</head><body><main><button class="theme-toggle" id="themeToggle" type="button"></button><h1>Shainy Hsu 的小工具</h1><ul>
 <li><a href="/file2md/"><strong>Forest MD Converter</strong><span>PDF、Word、Excel、PPT 批次轉 Markdown，檔案不離開裝置。</span></a></li>
 <li><a href="/class-hiking-calculator/"><strong>步程試算</strong><span>用 GPX 估算登山行程時間，依坡度、地形、天候與團體步速修正。</span></a></li>
 <li><a href="/Leveraged-Outdoor-Strategy/"><strong>上山籌碼評估</strong><span>領隊用的行前評估表：路線需求對隊員能力。</span></a></li>
 <li><a href="/markets/"><strong>BTC／黃金即時匯率</strong><span>比特幣與黃金即時換算，含 1 小時到 7 天走勢。</span></a></li>
 <li><a href="/fuel/"><strong>Jet A Fuel Calculator</strong><span>G550 加油量換算與油溫密度修正。</span></a></li>
-</ul><footer>© 2026 shainyhsu</footer></main></body></html>
+</ul><footer>© 2026 shainyhsu</footer></main>
+<script>(function(){var r=document.documentElement,b=document.getElementById("themeToggle");if(!b)return;var SUN='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>',MOON='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>';function sync(){var d=r.getAttribute("data-theme")!=="light";b.innerHTML=d?SUN:MOON;var l=d?"切換為淺色模式 / Light mode":"切換為深色模式 / Dark mode";b.title=l;b.setAttribute("aria-label",l)}b.addEventListener("click",function(){var n=r.getAttribute("data-theme")==="light"?"dark":"light";r.setAttribute("data-theme",n);try{localStorage.setItem("theme",n)}catch(e){}sync();try{window.dispatchEvent(new CustomEvent("themechange",{detail:n}))}catch(e){}});sync()})()</script>
+</body></html>
