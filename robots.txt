@@ -1,3 +1,24 @@
+# AI training crawlers: not allowed (see LICENSE in each repository).
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Meta-ExternalAgent
+User-agent: Bytespider
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: Diffbot
+User-agent: AI2Bot
+User-agent: Omgilibot
+User-agent: PanguBot
+User-agent: Timpibot
+User-agent: ImagesiftBot
+Disallow: /
+
+# Search engines and AI search (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Googlebot, Bingbot and others): allowed.
 User-agent: *
 Allow: /
+
 Sitemap: https://shainyhsu.github.io/sitemap.xml
