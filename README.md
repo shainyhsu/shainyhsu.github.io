@@ -23,6 +23,7 @@ Copyright (c) 2026 Shainy Hsu. All rights reserved. See [LICENSE](LICENSE).
 
 Newest first. Times are Taiwan time (UTC+8). Also kept in [CHANGELOG.md](CHANGELOG.md).
 
+- V8 | 2026-11-13 09:36 | Added a classic favicon.ico tab icon for older browsers and search tools.
 - V7 | 2026-11-13 09:20 | Added a tab icon, a shorter page description and structured data listing the six tools for search engines.
 - V6 | 2026-11-11 21:47 | Added Multi-Route Profile Comparison to the list, sitemap and link-preview image; tools now run Multi-Route, Hiking, Leverage, BTC & Gold, Fuel, File to Markdown
 - V5 | 2026-11-11 11:38 | Forest MD Converter renamed File to Markdown in the list, page description and link-preview image
