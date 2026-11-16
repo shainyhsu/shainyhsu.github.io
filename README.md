@@ -7,7 +7,7 @@ Each tool is one page in its own repo and runs in your browser.
 | Tool | Page | Repo |
 |------|------|------|
 | Multi-Route Profile Comparison | [open](https://shainyhsu.github.io/multi-route-profile-comparison/) | [multi-route-profile-comparison](https://github.com/shainyhsu/multi-route-profile-comparison) |
-| Hiking Time Estimator | [open](https://shainyhsu.github.io/class-hiking-calculator/) | [class-hiking-calculator](https://github.com/shainyhsu/class-hiking-calculator) |
+| Hike Time Estimator & Walk Record Analysis | [open](https://shainyhsu.github.io/class-hiking-calculator/) | [class-hiking-calculator](https://github.com/shainyhsu/class-hiking-calculator) |
 | Leverage Check | [open](https://shainyhsu.github.io/Leveraged-Outdoor-Strategy/) | [Leveraged-Outdoor-Strategy](https://github.com/shainyhsu/Leveraged-Outdoor-Strategy) |
 | BTC & Gold Live Rates | [open](https://shainyhsu.github.io/markets/) | [markets](https://github.com/shainyhsu/markets) |
 | Jet A Fuel Calculator | [open](https://shainyhsu.github.io/fuel/) | [fuel](https://github.com/shainyhsu/fuel) |
@@ -23,6 +23,7 @@ Copyright (c) 2026 Shainy Hsu. All rights reserved. See [LICENSE](LICENSE).
 
 Newest first. Times are Taiwan time (UTC+8). Also kept in [CHANGELOG.md](CHANGELOG.md).
 
+- V9 | 2026-11-17 00:00 | Hiking Time Estimator renamed Hike Time Estimator & Walk Record Analysis in the list, page description, structured data and link-preview image, with a line on loading a walk record
 - V8 | 2026-11-13 09:36 | Added a classic favicon.ico tab icon for older browsers and search tools.
 - V7 | 2026-11-13 09:20 | Added a tab icon, a shorter page description and structured data listing the six tools for search engines.
 - V6 | 2026-11-11 21:47 | Added Multi-Route Profile Comparison to the list, sitemap and link-preview image; tools now run Multi-Route, Hiking, Leverage, BTC & Gold, Fuel, File to Markdown
