@@ -1,20 +1,20 @@
 # 01_CURRENT_STATE.md（SSSM 語義狀態空間快照）
 
-- 最後更新：2026-11-24 13:39（台灣時間）
+- 最後更新：2026-11-24 16:21（台灣時間）
 - 標記：〔Node 實測〕＝抽出步程試算 CORE（index.html L936–2145）以 Node 22 執行確認；〔程式碼核對〕＝讀 main 分支原始碼確認。兩者都不是瀏覽器實機測試。
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
 
-- 當前唯一原子任務：〔待 Shainy 指定〕
-- 完成驗收條件：〔待 Shainy 指定〕
-- 候選（Claude 2026-11-24 盤點時提出，未經 Shainy 確認；擇一後改寫上兩行並刪除其餘）：
+- 當前唯一原子任務：步程試算 Q5 報告：實走分析的最短停留門檻（現行 5 秒一格＋40 秒短停補抓）與「只算 3 分鐘以上」的小休比較，並檢查低門檻的短停有多少像 GPS 漂移（Shainy 2026-11-24 15:58 同意；16:07：「若能有效排除gps漂移，當然小休門檻越低越好，若窒礙難行，也許3分以下是比較實際的作法。」）；之後 Q6：小休依坡度的分布。
+- 完成驗收條件：只出報告（放 claude.ai 專案文件），網頁與參數不動；數字由程式算；固定基準 68 個 GPX 全跑。
+- 其他候選（Claude 2026-11-24 盤點時提出，未經 Shainy 確認）：
   1. TrailJSON 轉換器：在 CORE 內新增 toTrailJSON()，由 normSections()＋runModelV3() 換算 00 第四節欄位（fatigueIndex 先留空）。驗收：Node 載入 CORE 對測試 GPX 印出符合契約的陣列，頁面計算結果完全不變。
   2. 刪除 bind() 內體重綁定死碼：mainBodyKg 兩段重複（L5597–5615）與 pBody（L5624–5631），兩個元素已不存在；中間的 pLightKg（L5616–5623）仍在使用，保留。驗收：行為不變，grep 無 mainBodyKg／pBody 殘留。
   3. JSZip 改為讀 KMZ 時才載入（比照路線剖面比較 loadJSZip()），移除 L64 的同步 `<script>`。驗收：只讀 GPX／KML 時不請求 cdnjs，KMZ 仍可讀。
 
 ## 2. 已驗證事實（Verified Facts）
 
-- 步程試算現行 V112（2026-11-24 09:31，commit 4a95c9f）；附件寫的「穩定版 v109」已過時（V109 為 2026-11-23 19:52）。〔程式碼核對〕
+- 步程試算現行 V113（2026-11-24 16:21，commit b038208，PR #18）：單筆校準框的小休、大休改用實走分析讀法，和 V112 上傳歷史 GPX 相同。〔程式碼核對＋Chromium 實測〕前一版 V112（2026-11-24 09:31，commit 4a95c9f）；附件寫的「穩定版 v109」已過時（V109 為 2026-11-23 19:52）。〔程式碼核對〕
 - 速度基準 Tobler 與 DIN 33466 各半：wTob 0.5；Tobler 倍率 F 0.734；DIN 平地 3.62 km/h、上坡 468 m/h、下坡 791 m/h；300 m 以上每升高 1,000 m 上坡慢 6.3%。〔Node 實測〕
 - 基準體重 bodyKg 50、校準負重 calKg 13、輕裝 lightKg 2；applyInputs() 每次重設 bodyKg = 50（L4750）。〔Node 實測＋程式碼核對〕
 - 分段可調：normSections() 每段獨立 terr／heavy／rain／run，未設定區間補「一般步道・重裝・晴」。〔Node 實測〕
@@ -33,4 +33,5 @@
 ## 4. 已套用變更與下一步唯一動作（Applied Changes & Immediate Next Action）
 
 - 已修改檔案（2026-11-24）：shainyhsu.github.io 新增 .ai/00–03、AGENTS.md、CLAUDE.md；另 6 個公開工具 repo 與 1 個私人 repo 新增 AGENTS.md、CLAUDE.md 入口檔；網頁與程式碼未動。
-- 下一步唯一動作：Shainy 從第 1 節候選擇一（或另定），改寫「當前唯一原子任務」與「完成驗收條件」。
+- 已修改檔案（2026-11-24 16:21）：class-hiking-calculator index.html（calBrk() 新增、renderCal() 小休段改寫、EN 一句）、README.md、CHANGELOG.md（V113）；00 的步程試算行號同步。
+- 下一步唯一動作：跑 Q5 報告。
