@@ -30,5 +30,5 @@ Instructions for coding agents (Claude, Codex, Gemini, Cursor and others) workin
 
 - Talk to Shainy in Traditional Chinese (Taiwan usage). Page text and commit messages follow each repo.
 - Each update of a page is one version: add a line to the README "Version history" and to CHANGELOG.md (`V<n> | YYYY-MM-DD HH:MM | one short line`, Taiwan time, UTC+8).
-- Work on a branch and open a pull request; Shainy merges.
+- Work on a branch and open a pull request; merge it only when Shainy asks.
 - Line numbers drift between versions. Trust function names, and update the index in 00 when you change a page.

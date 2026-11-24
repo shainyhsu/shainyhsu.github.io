@@ -1,6 +1,6 @@
 # 01_CURRENT_STATE.md（SSSM 語義狀態空間快照）
 
-- 最後更新：2026-11-24 09:48（台灣時間）
+- 最後更新：2026-11-24 13:39（台灣時間）
 - 標記：〔Node 實測〕＝抽出步程試算 CORE（index.html L936–2145）以 Node 22 執行確認；〔程式碼核對〕＝讀 main 分支原始碼確認。兩者都不是瀏覽器實機測試。
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
@@ -32,5 +32,5 @@
 
 ## 4. 已套用變更與下一步唯一動作（Applied Changes & Immediate Next Action）
 
-- 已修改檔案：shainyhsu.github.io 新增 .ai/00–03、AGENTS.md、CLAUDE.md（2026-11-24）；三個工具 repo 未改動。
+- 已修改檔案（2026-11-24）：shainyhsu.github.io 新增 .ai/00–03、AGENTS.md、CLAUDE.md；另 6 個公開工具 repo 與 1 個私人 repo 新增 AGENTS.md、CLAUDE.md 入口檔；網頁與程式碼未動。
 - 下一步唯一動作：Shainy 從第 1 節候選擇一（或另定），改寫「當前唯一原子任務」與「完成驗收條件」。
