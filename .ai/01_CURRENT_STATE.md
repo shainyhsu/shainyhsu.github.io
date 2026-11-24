@@ -5,9 +5,9 @@
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
 
-- 當前唯一原子任務：〔待 Sean 指定〕
-- 完成驗收條件：〔待 Sean 指定〕
-- 候選（Claude 2026-11-24 盤點時提出，未經 Sean 確認；擇一後改寫上兩行並刪除其餘）：
+- 當前唯一原子任務：〔待 Shainy 指定〕
+- 完成驗收條件：〔待 Shainy 指定〕
+- 候選（Claude 2026-11-24 盤點時提出，未經 Shainy 確認；擇一後改寫上兩行並刪除其餘）：
   1. TrailJSON 轉換器：在 CORE 內新增 toTrailJSON()，由 normSections()＋runModelV3() 換算 00 第四節欄位（fatigueIndex 先留空）。驗收：Node 載入 CORE 對測試 GPX 印出符合契約的陣列，頁面計算結果完全不變。
   2. 刪除 bind() 內體重綁定死碼：mainBodyKg 兩段重複（L5597–5615）與 pBody（L5624–5631），兩個元素已不存在；中間的 pLightKg（L5616–5623）仍在使用，保留。驗收：行為不變，grep 無 mainBodyKg／pBody 殘留。
   3. JSZip 改為讀 KMZ 時才載入（比照路線剖面比較 loadJSZip()），移除 L64 的同步 `<script>`。驗收：只讀 GPX／KML 時不請求 cdnjs，KMZ 仍可讀。
@@ -27,10 +27,10 @@
 ## 3. 未驗證想法與待確認假設（Unverified，不得當作已實作）
 
 - [Unverified] 三工具合併為單一離線 App；未測大於 5 MB GPX 在手機 IndexedDB 的讀寫延遲。
-- [Unverified] TrailJSON 單向資料流（00 第四節）尚未實作；fatigueIndex 需 Sean 定義。
+- [Unverified] TrailJSON 單向資料流（00 第四節）尚未實作；fatigueIndex 需 Shainy 定義。
 - [Unverified] SSSM 能省 token 費用：arXiv:2611.05306 證實短上下文下準確率大致不降，未證實總費用下降；第三方分析指出壓縮後提示快取失效，名目費用在多數設定反而上升。
 
 ## 4. 已套用變更與下一步唯一動作（Applied Changes & Immediate Next Action）
 
 - 已修改檔案：shainyhsu.github.io 新增 .ai/00–03、AGENTS.md、CLAUDE.md（2026-11-24）；三個工具 repo 未改動。
-- 下一步唯一動作：Sean 從第 1 節候選擇一（或另定），改寫「當前唯一原子任務」與「完成驗收條件」。
+- 下一步唯一動作：Shainy 從第 1 節候選擇一（或另定），改寫「當前唯一原子任務」與「完成驗收條件」。

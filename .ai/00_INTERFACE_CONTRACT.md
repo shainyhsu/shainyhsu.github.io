@@ -74,4 +74,4 @@
   - 路線剖面比較自有 parseXml()，與步程試算 parseTrackText() 重複。
   - 籌碼評估目前不讀路線資料，需求軸由使用者評分。
   - 步程試算現有分段為 normSections() 輸出 `{ a, b, real, terr, heavy, rain, run, scale, off }`（a、b 為 GPX 距離 m）；runModelV3() 回傳 `{ x, cum, xr, rs, rn, bd, total, realTotal, … }`。TrailJSON 欄位由這兩者換算。
-  - fatigueIndex 無現成對應（疲勞池已於 v58 移除），須 Sean 先定義。
+  - fatigueIndex 無現成對應（疲勞池已於 v58 移除），須 Shainy 先定義。
