@@ -1,7 +1,7 @@
 # 00_INTERFACE_CONTRACT.md（生態系黑盒契約與選擇性讀取索引）
 
 - 專案擁有者：Shainy Hsu（https://github.com/shainyhsu，網站 https://shainyhsu.github.io/）
-- 索引核對：2026-11-24，各 repo main 分支。步程試算 V113（b038208，2026-11-24 16:21）、路線剖面比較 V19（47cb95b）、上山籌碼評估 V35（64f8943）、總首頁 V9（2ecb565）
+- 索引核對：2026-11-24，各 repo main 分支。步程試算 V114（97533e4，2026-11-24 19:34）、路線剖面比較 V19（47cb95b）、上山籌碼評估 V35（64f8943）、總首頁 V9（2ecb565）
 - 短上下文紅線（SSSM）：單次對話峰值 16K–32K tokens。不整檔貼上大型單檔，一律「函數定位＋局部片段（≤150 行／6,000 字元）」。
 - 行號會隨改版漂移：以函數名稱為準。改版後用 `grep -n "function 名稱" index.html` 重新定位，再更新本索引。
 
@@ -10,7 +10,7 @@
 | 模組 | Repo | 主檔（行數） | 版本 |
 |---|---|---|---|
 | 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V9 |
-| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,143） | V113 |
+| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,171） | V114 |
 | Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V19 |
 | Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V35 |
 | BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | 本索引未涵蓋 | — |
@@ -23,7 +23,7 @@
 
 ### 1. 步程試算：class-hiking-calculator/index.html
 
-核心模組 CORE（L940–2146）：`var CORE = (function () {…})()`，L2146 為 `module.exports = CORE`。抽出 L937–2146 即可用 Node `require` 測試，不需瀏覽器。
+核心模組 CORE（L940–2174）：`var CORE = (function () {…})()`，L2174 為 `module.exports = CORE`。抽出 L937–2174 即可用 Node `require` 測試，不需瀏覽器。
 
 - 軌跡解析：parseTrackText() L991–1051 → buildTrack() L1054–1068、buildTrackRaw() L1092–1127、cleanElevationByDistance() L1072–1091
 - 參數：DEFAULTS 物件 L1353 起（Tobler 與 DIN 33466 各半、bodyKg 50）
@@ -31,19 +31,19 @@
 - 速度：tobler() L1614、lightHours() L1617–1625（Pandolf 1977 輕裝換算）、kayPace() L1629–1633（跑步）、runHours() L1635–1654、stepHours() L1665–1709、refSpeeds() L1712–1718、stretchHours() L1720–1733
 - 主模型：runModelV3() L1736–1788 → applyBuffer() L1806–1816（短休）→ scheduleV3() L1823–1834；clockAtV3() L1835–1843、rainAtV3() L1818–1822
 - 勞侖茲：extractLorentzSamples() L1441–1475、normLorentzSamples() L1481–1502、fitLorentz() L1504–1541（Gauss-Newton；樣本 <20 回傳 null）
-- 過去紀錄校準：countHeightJumps() L1864–1875、settleStart() L1879–1899、timeGrid() L1900–2006、matchRoute() L2020–2073、calibrate() L2078–2129
+- 過去紀錄校準：countHeightJumps() L1864–1875、settleStart() L1879–1899、timeGrid() L1900–2034、matchRoute() L2048–2101、calibrate() L2106–2157
 
-頁面層（L2149–5852）：
+頁面層（L2177–5880）：
 
-- 載入檔案：handleFile() L4825–4857、readKmz() L4817–4824、applyInputs() L4792–4809
-- 實走紀錄分析：actData() L3922–4026、actView() L4028–4092、renderAct() L4112–4133、handleActFile() L4161–4173
-- 單筆校準框：renderCal() L2778–2844、calBrk() L2845–2885（V113：小休、大休改用實走分析單獨讀這筆紀錄；有「只算其中一段」時只算該段）
-- 過去 GPX 擬合（bind() 內）：histAdd() L5398–5425、histBrk() L5434–5440、histTeam() L5458–5466、histDone() L5469–5523
-- 畫面：renderNow() L3019–3051、renderSections() L3137–3193、renderSummary() L3196–3236、renderProfile() L3312–3484、renderTable() L3496–3520
-- 圖卡與匯出：buildPicDoc0() L4201–4547、makePictures() L4563–4576、sharePicture() L4736–4751、buildGpx() L4677–4723
-- 儲存：save() L2264–2275、loadSaved() L2338–2362（localStorage）
-- 事件綁定：bind() L4931–5782（852 行，只讀需要的片段）、init() L5784–5848
-- 分享短連結（L5853–6140）：seal() L5915–5919、unseal() L5920–5924、shortLink() L5955–5972
+- 載入檔案：handleFile() L4853–4885、readKmz() L4845–4852、applyInputs() L4820–4837
+- 實走紀錄分析：actData() L3950–4054、actView() L4056–4120、renderAct() L4140–4161、handleActFile() L4189–4201
+- 單筆校準框：renderCal() L2806–2872、calBrk() L2873–2913（V113：小休、大休改用實走分析單獨讀這筆紀錄；有「只算其中一段」時只算該段）
+- 過去 GPX 擬合（bind() 內）：histAdd() L5426–5453、histBrk() L5462–5468、histTeam() L5486–5494、histDone() L5497–5551
+- 畫面：renderNow() L3047–3079、renderSections() L3165–3221、renderSummary() L3224–3264、renderProfile() L3340–3512、renderTable() L3524–3548
+- 圖卡與匯出：buildPicDoc0() L4229–4575、makePictures() L4591–4604、sharePicture() L4764–4779、buildGpx() L4705–4751
+- 儲存：save() L2292–2303、loadSaved() L2366–2390（localStorage）
+- 事件綁定：bind() L4959–5810（852 行，只讀需要的片段）、init() L5812–5876
+- 分享短連結（L5881–6168）：seal() L5943–5947、unseal() L5948–5952、shortLink() L5983–6000
 
 ### 2. 路線剖面比較：multi-route-profile-comparison/index.html
 
