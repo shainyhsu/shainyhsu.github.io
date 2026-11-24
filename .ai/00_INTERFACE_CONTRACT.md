@@ -1,7 +1,7 @@
 # 00_INTERFACE_CONTRACT.md（生態系黑盒契約與選擇性讀取索引）
 
 - 專案擁有者：Shainy Hsu（https://github.com/shainyhsu，網站 https://shainyhsu.github.io/）
-- 索引核對：2026-11-24，各 repo main 分支。步程試算 V112（4a95c9f）、路線剖面比較 V19（47cb95b）、上山籌碼評估 V35（64f8943）、總首頁 V9（2ecb565）
+- 索引核對：2026-11-24，各 repo main 分支。步程試算 V113（b038208，2026-11-24 16:21）、路線剖面比較 V19（47cb95b）、上山籌碼評估 V35（64f8943）、總首頁 V9（2ecb565）
 - 短上下文紅線（SSSM）：單次對話峰值 16K–32K tokens。不整檔貼上大型單檔，一律「函數定位＋局部片段（≤150 行／6,000 字元）」。
 - 行號會隨改版漂移：以函數名稱為準。改版後用 `grep -n "function 名稱" index.html` 重新定位，再更新本索引。
 
@@ -10,7 +10,7 @@
 | 模組 | Repo | 主檔（行數） | 版本 |
 |---|---|---|---|
 | 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V9 |
-| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,100） | V112 |
+| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,143） | V113 |
 | Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V19 |
 | Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V35 |
 | BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | 本索引未涵蓋 | — |
@@ -23,26 +23,27 @@
 
 ### 1. 步程試算：class-hiking-calculator/index.html
 
-核心模組 CORE（L939–2145）：`var CORE = (function () {…})()`，L2145 為 `module.exports = CORE`。抽出 L936–2145 即可用 Node `require` 測試，不需瀏覽器。
+核心模組 CORE（L940–2146）：`var CORE = (function () {…})()`，L2146 為 `module.exports = CORE`。抽出 L937–2146 即可用 Node `require` 測試，不需瀏覽器。
 
-- 軌跡解析：parseTrackText() L990–1050 → buildTrack() L1053–1067、buildTrackRaw() L1091–1126、cleanElevationByDistance() L1071–1090
-- 參數：DEFAULTS 物件 L1352 起（Tobler 與 DIN 33466 各半、bodyKg 50）
-- 分段：normSections() L1583–1600、secAt() L1601–1604、secTerr() L1581、secHeavy() L1582
-- 速度：tobler() L1613、lightHours() L1616–1624（Pandolf 1977 輕裝換算）、kayPace() L1628–1632（跑步）、runHours() L1634–1653、stepHours() L1664–1708、refSpeeds() L1711–1717、stretchHours() L1719–1732
-- 主模型：runModelV3() L1735–1787 → applyBuffer() L1805–1815（短休）→ scheduleV3() L1822–1833；clockAtV3() L1834–1842、rainAtV3() L1817–1821
-- 勞侖茲：extractLorentzSamples() L1440–1474、normLorentzSamples() L1480–1501、fitLorentz() L1503–1540（Gauss-Newton；樣本 <20 回傳 null）
-- 過去紀錄校準：countHeightJumps() L1863–1874、settleStart() L1878–1898、timeGrid() L1899–2005、matchRoute() L2019–2072、calibrate() L2077–2128
+- 軌跡解析：parseTrackText() L991–1051 → buildTrack() L1054–1068、buildTrackRaw() L1092–1127、cleanElevationByDistance() L1072–1091
+- 參數：DEFAULTS 物件 L1353 起（Tobler 與 DIN 33466 各半、bodyKg 50）
+- 分段：normSections() L1584–1601、secAt() L1602–1605、secTerr() L1582、secHeavy() L1583
+- 速度：tobler() L1614、lightHours() L1617–1625（Pandolf 1977 輕裝換算）、kayPace() L1629–1633（跑步）、runHours() L1635–1654、stepHours() L1665–1709、refSpeeds() L1712–1718、stretchHours() L1720–1733
+- 主模型：runModelV3() L1736–1788 → applyBuffer() L1806–1816（短休）→ scheduleV3() L1823–1834；clockAtV3() L1835–1843、rainAtV3() L1818–1822
+- 勞侖茲：extractLorentzSamples() L1441–1475、normLorentzSamples() L1481–1502、fitLorentz() L1504–1541（Gauss-Newton；樣本 <20 回傳 null）
+- 過去紀錄校準：countHeightJumps() L1864–1875、settleStart() L1879–1899、timeGrid() L1900–2006、matchRoute() L2020–2073、calibrate() L2078–2129
 
-頁面層（L2148–5809）：
+頁面層（L2149–5852）：
 
-- 載入檔案：handleFile() L4782–4814、readKmz() L4774–4781、applyInputs() L4749–4766
-- 實走紀錄分析：actData() L3879–3983、actView() L3985–4049、renderAct() L4069–4090、handleActFile() L4118–4130
-- 過去 GPX 擬合（bind() 內）：histAdd() L5355–5382、histBrk() L5391–5397、histTeam() L5415–5423、histDone() L5426–5480
-- 畫面：renderNow() L2976–3008、renderSections() L3094–3150、renderSummary() L3153–3193、renderProfile() L3269–3441、renderTable() L3453–3477
-- 圖卡與匯出：buildPicDoc0() L4158–4504、makePictures() L4520–4533、sharePicture() L4693–4708、buildGpx() L4634–4680
-- 儲存：save() L2263–2274、loadSaved() L2337–2361（localStorage）
-- 事件綁定：bind() L4888–5739（852 行，只讀需要的片段）、init() L5741–5805
-- 分享短連結（L5810–6097）：seal() L5872–5876、unseal() L5877–5881、shortLink() L5912–5929
+- 載入檔案：handleFile() L4825–4857、readKmz() L4817–4824、applyInputs() L4792–4809
+- 實走紀錄分析：actData() L3922–4026、actView() L4028–4092、renderAct() L4112–4133、handleActFile() L4161–4173
+- 單筆校準框：renderCal() L2778–2844、calBrk() L2845–2885（V113：小休、大休改用實走分析單獨讀這筆紀錄；有「只算其中一段」時只算該段）
+- 過去 GPX 擬合（bind() 內）：histAdd() L5398–5425、histBrk() L5434–5440、histTeam() L5458–5466、histDone() L5469–5523
+- 畫面：renderNow() L3019–3051、renderSections() L3137–3193、renderSummary() L3196–3236、renderProfile() L3312–3484、renderTable() L3496–3520
+- 圖卡與匯出：buildPicDoc0() L4201–4547、makePictures() L4563–4576、sharePicture() L4736–4751、buildGpx() L4677–4723
+- 儲存：save() L2264–2275、loadSaved() L2338–2362（localStorage）
+- 事件綁定：bind() L4931–5782（852 行，只讀需要的片段）、init() L5784–5848
+- 分享短連結（L5853–6140）：seal() L5915–5919、unseal() L5920–5924、shortLink() L5955–5972
 
 ### 2. 路線剖面比較：multi-route-profile-comparison/index.html
 
