@@ -1,6 +1,6 @@
 # 01_CURRENT_STATE.md（SSSM 語義狀態空間快照）
 
-- 最後更新：2026-11-25 09:09（台灣時間）
+- 最後更新：2026-11-25 09:33（台灣時間）
 - 標記：〔Node 實測〕＝抽出步程試算 CORE（index.html L936–2145）以 Node 22 執行確認；〔程式碼核對〕＝讀 main 分支原始碼確認。兩者都不是瀏覽器實機測試。
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
@@ -37,6 +37,6 @@
 - 已修改檔案（2026-11-24 19:34）：class-hiking-calculator index.html（timeGrid 新增 keep 保護與常數 ZSTAY 30、ZBACK 0.5）、README.md、CHANGELOG.md（V114；版本行寫 19:33，實際合併 19:34:04，差 1 分鐘）；00 的步程試算行號同步。Q5、Q6 報告已出（claude.ai 專案文件）。
 - 前一任務（46 筆固定基準以 V114 重算）：claude.ai 專案文件已有「固定基準測試-V114基準-46筆-20261124.md」。
 - 已修改檔案（2026-11-25，09:01 合併上線）：步程試算 V116（JSZip 加 SRI；10 處 innerHTML = '' 改 replaceChildren()；?lang= 改用 URLSearchParams；螢幕閱讀器隱藏字改 clip-path）、路線剖面比較 V20（動態載入的 JSZip 加 SRI；2 處 replaceChildren()）、上山籌碼評估 V36（clip-path；列印改 break-after）、markets V20（Chart.js 鎖 4.6.2 並加 SRI；clip-path）、file2md V18（5 個函式庫加 SRI；1 處 replaceChildren()）；7 個 AGENTS.md 與本 repo .ai 的 Popover 說明更正；markets、file2md 新建 .ai/；00 步程試算行號依 V115 位移更新。
-- 不改的項目與理由：toSorted()／toReversed()（需 Safari 16）；structuredClone()（需 Safari 15.4）；light-dark() 與 :has(meta) 對應（需 Safari 17.5／15.4）；word-break: break-word（替代需 Safari 15.4）；pdf.js 的 SRI（需 import map integrity）；document.write（見 02 Dead End 5）。
+- 不改的項目與理由：toSorted()／toReversed()（需 Safari 16）；structuredClone()（需 Safari 15.4）；light-dark() 與 :has(meta) 對應（需 Safari 17.5／15.4）；word-break: break-word（替代需 Safari 15.4）；pdf.js 的 SRI（需 import map integrity）；document.write（見 02 Dead End 5；Shainy 09:32 確認不接受頁尾網址變亂碼）。
 - 已修改檔案（2026-11-25，分支 theme-meta，PR 待合併）：7 頁開頁腳本與切換鈕同步 `<meta name="color-scheme">`（總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37、markets V21、fuel V16、file2md V19）；fuel 新建 .ai/。
 - 下一步唯一動作：Shainy 審第二輪 7 個 PR（theme-meta），說合併才合併。

@@ -8,6 +8,7 @@
 - [MWG 1.0] UI 互動、彈窗、版面與檔案處理優先用瀏覽器原生 Web API（`<dialog>`、CSS Grid／Subgrid、IndexedDB／OPFS；Popover API 2027-07-27 前只在附 MWG 指南備援時使用）與 Baseline Widely Available；不引入肥大 Polyfill 或舊式 JS 變通寫法。〔未核對：屬新程式規範，現有頁面尚未使用上述 API〕
 - [MWG 修正] 現代化寫法不得提高頁面現有的 Safari／iOS 最低版本（iOS 跟著系統，舊裝置停更就卡住；Chrome、Edge、Firefox 會自動更新，以 Baseline Widely available 為準）；計算結果、畫面與效能不可變差（Shainy 2026-11-25：「可變好，不可變差」）。外部 CDN 腳本鎖版本並加 SRI。〔已核對：2026-11-25 mwg-modernize 各 PR〕
 - [深淺色] 沒存設定時預設深色（各頁開頁腳本）；`<meta name="color-scheme">` 與 data-theme 由開頁腳本和切換鈕同步；CSS 仍用 data-theme 決定顏色，改用 :has(meta) 與 light-dark() 要等 Safari 最低版本到 15.4／17.5。〔已核對：2026-11-25 theme-meta PR〕
+- [列印] 列印文件的頁首頁尾須維持原網頁網址，不得改成 blob:…、about:srcdoc 等網址；上山籌碼評估 printWaiver() 的列印視窗與備援 iframe 保留 document.open／write（Shainy 2026-11-25 09:32：「不接受頁尾網址變亂碼」）。〔已核對：printWaiver()〕
 - [演算法] 步程估算考量分段坡度、地形係數、分段天氣／負重與團體最慢速度（木桶效應）。〔已核對：normSections()〕
 - [演算法] 歷史紀錄少於 3 筆時不擬合勞侖茲函數，改用上下坡速度倍數；另需樣本 ≥20。〔已核對：histDone() L5448〕
 - [演算法] 速度基準 Tobler 與 DIN 33466 各半（wTob 0.5）；輕裝段以 Pandolf 1977 同耗能換算；基準體重固定 50 kg、校準負重 13 kg。〔已核對〕
