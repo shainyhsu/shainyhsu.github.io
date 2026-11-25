@@ -1,12 +1,12 @@
 # 01_CURRENT_STATE.md（SSSM 語義狀態空間快照）
 
-- 最後更新：2026-11-24 19:34（台灣時間）
+- 最後更新：2026-11-25 08:27（台灣時間）
 - 標記：〔Node 實測〕＝抽出步程試算 CORE（index.html L936–2145）以 Node 22 執行確認；〔程式碼核對〕＝讀 main 分支原始碼確認。兩者都不是瀏覽器實機測試。
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
 
-- 當前唯一原子任務：步程試算固定基準改為 46 筆（Shainy 2026-11-24 19:33「剔除」：2026-08-26_08-57 划立式槳板、2026-07-08_10-05 搭客運與步行混合，不是登山步行），以 V114 重算基準。
-- 完成驗收條件：同固定基準規格的跑法（bench_model.py、report_model.py）；46 筆清單與 V114 基準寫進 claude.ai 專案文件與 CLAUDE.md；網頁與參數不動。
+- 當前唯一原子任務：MWG 修正。Shainy 2026-11-25 08:04 逐字：「開始修正，在不改變或降低安全、ui、計算、效能的前提下（可變好，不可變差）。」
+- 完成驗收條件：計算結果與畫面不變（main 與分支逐字、逐像素比對）；不提高任何頁面現有的 Safari／iOS 最低版本；外部腳本雜湊與 npm 原檔一致；每個 repo 一個分支、一個 PR，Shainy 說合併才合併。
 - 其他候選（Claude 2026-11-24 盤點時提出，未經 Shainy 確認）：
   1. TrailJSON 轉換器：在 CORE 內新增 toTrailJSON()，由 normSections()＋runModelV3() 換算 00 第四節欄位（fatigueIndex 先留空）。驗收：Node 載入 CORE 對測試 GPX 印出符合契約的陣列，頁面計算結果完全不變。
   2. 刪除 bind() 內體重綁定死碼：mainBodyKg 兩段重複（L5597–5615）與 pBody（L5624–5631），兩個元素已不存在；中間的 pLightKg（L5616–5623）仍在使用，保留。驗收：行為不變，grep 無 mainBodyKg／pBody 殘留。
@@ -35,4 +35,7 @@
 - 已修改檔案（2026-11-24）：shainyhsu.github.io 新增 .ai/00–03、AGENTS.md、CLAUDE.md；另 6 個公開工具 repo 與 1 個私人 repo 新增 AGENTS.md、CLAUDE.md 入口檔；網頁與程式碼未動。
 - 已修改檔案（2026-11-24 16:21）：class-hiking-calculator index.html（calBrk() 新增、renderCal() 小休段改寫、EN 一句）、README.md、CHANGELOG.md（V113）；00 的步程試算行號同步。
 - 已修改檔案（2026-11-24 19:34）：class-hiking-calculator index.html（timeGrid 新增 keep 保護與常數 ZSTAY 30、ZBACK 0.5）、README.md、CHANGELOG.md（V114；版本行寫 19:33，實際合併 19:34:04，差 1 分鐘）；00 的步程試算行號同步。Q5、Q6 報告已出（claude.ai 專案文件）。
-- 下一步唯一動作：以 V114 重算 46 筆固定基準。
+- 前一任務（46 筆固定基準以 V114 重算）：claude.ai 專案文件已有「固定基準測試-V114基準-46筆-20261124.md」。
+- 已修改檔案（2026-11-25，09:01 合併上線）：步程試算 V116（JSZip 加 SRI；10 處 innerHTML = '' 改 replaceChildren()；?lang= 改用 URLSearchParams；螢幕閱讀器隱藏字改 clip-path）、路線剖面比較 V20（動態載入的 JSZip 加 SRI；2 處 replaceChildren()）、上山籌碼評估 V36（clip-path；列印改 break-after）、markets V20（Chart.js 鎖 4.6.2 並加 SRI；clip-path）、file2md V18（5 個函式庫加 SRI；1 處 replaceChildren()）；7 個 AGENTS.md 與本 repo .ai 的 Popover 說明更正；markets、file2md 新建 .ai/；00 步程試算行號依 V115 位移更新。
+- 不改的項目與理由：toSorted()／toReversed()（需 Safari 16）；structuredClone()（需 Safari 15.4，且 JSON 複製會把 NaN 變 null，換掉可能改變計算）；light-dark()（需 Safari 17.5）；深淺色切換只更新 meta（CSS 已宣告 color-scheme，只改 meta 沒有作用，照指南全改會改變預設主題）；document.write（列印流程換寫法有行為風險）；word-break: break-word（替代的 overflow-wrap: anywhere 需 Safari 15.4）。
+- 下一步唯一動作：第二輪：深淺色切換同步 `<meta name="color-scheme">`（另開分支與 PR）。
