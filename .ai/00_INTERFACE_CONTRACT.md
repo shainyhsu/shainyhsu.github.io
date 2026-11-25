@@ -1,7 +1,7 @@
 # 00_INTERFACE_CONTRACT.md（生態系黑盒契約與選擇性讀取索引）
 
 - 專案擁有者：Shainy Hsu（https://github.com/shainyhsu，網站 https://shainyhsu.github.io/）
-- 索引核對：2026-11-25，main（mwg-modernize 於 09:01 合併）。步程試算 V116、路線剖面比較 V20、上山籌碼評估 V36。本次修改都在同一行內，行號沒有位移；步程試算 V115 造成的頁面層位移（約 +15 行）已一併更新。
+- 索引核對：2026-11-25，theme-meta 分支（PR 待合併）。總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37。本次修改都在同一行內，行號沒有位移。
 - 短上下文紅線（SSSM）：單次對話峰值 16K–32K tokens。不整檔貼上大型單檔，一律「函數定位＋局部片段（≤150 行／6,000 字元）」。
 - 行號會隨改版漂移：以函數名稱為準。改版後用 `grep -n "function 名稱" index.html` 重新定位，再更新本索引。
 
@@ -9,11 +9,11 @@
 
 | 模組 | Repo | 主檔（行數） | 版本 |
 |---|---|---|---|
-| 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V9 |
-| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,186） | V116 |
-| Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V20 |
-| Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V36 |
-| BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | markets、file2md 見各自 repo 的 .ai/00；fuel 尚未建立 | V20、V15、V18 |
+| 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V10 |
+| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,186） | V117 |
+| Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V21 |
+| Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V37 |
+| BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | 見各自 repo 的 .ai/00 | V21、V16、V19 |
 
 頁面網址一律為 https://shainyhsu.github.io/<repo>/。
 
@@ -67,6 +67,7 @@
 - 離線優先：〔目標，未實作〕目前無 Service Worker、無 manifest；狀態存 localStorage，未用 IndexedDB／OPFS。
 - Baseline 目標：Baseline Widely Available（MWG 1.0 預設）。新 UI 優先用 `<dialog>`、CSS Grid／Subgrid；Popover API 2025-01-27 才進入 Newly available、2027-07-27 才進入 Widely，採用時須照 MWG 指南附備援；目前三頁都還沒用到 `<dialog>`／Popover。
 - 外部腳本：一律鎖版本並加 SRI（integrity＋crossorigin="anonymous"＋referrerpolicy="no-referrer"），雜湊須與 npm 套件原檔逐位元一致。2026-11-25 起：步程試算 JSZip（靜態）、路線剖面比較 JSZip（讀 KMZ 才動態載入）、markets Chart.js 4.6.2、file2md 五個函式庫。
+- 深淺色：`<meta name="color-scheme">` 預設 dark，開頁腳本與切換鈕同步更新；CSS 仍以 data-theme 決定顏色。改用 :has(meta) 對應與 light-dark()，要等各頁 Safari 最低版本到 15.4／17.5。
 
 ## 四、單向資料流契約（Standard TrailJSON）〔目標契約，尚未實作〕
 

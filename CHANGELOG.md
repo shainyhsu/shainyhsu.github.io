@@ -2,6 +2,7 @@
 
 Newest first. Each update of the page is one version. Times are Taiwan time (UTC+8).
 
+- V10 | 2026-11-25 09:09 | The light/dark switch now also keeps <meta name="color-scheme"> in step with the theme, as Modern Web Guidance asks; colors and layout unchanged.
 - V9 | 2026-11-17 00:31 | Hiking Time Estimator renamed Hike Time Estimator & Walk Record Analysis in the list, page description, structured data and link-preview image, with a line on loading a walk record
 - V8 | 2026-11-13 09:36 | Added a classic favicon.ico tab icon for older browsers and search tools.
 - V7 | 2026-11-13 09:20 | Added a tab icon, a shorter page description and structured data listing the six tools for search engines.

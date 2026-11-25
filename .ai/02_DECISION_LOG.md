@@ -7,6 +7,7 @@
 - [架構] 維持純瀏覽器端運算，不依賴自架後端，確保山區離線可移植至 App、零伺服器維運成本。〔已核對：運算全在瀏覽器；分享短連結與隊員填表經 Google 表單／Apps Script，非運算後端〕
 - [MWG 1.0] UI 互動、彈窗、版面與檔案處理優先用瀏覽器原生 Web API（`<dialog>`、CSS Grid／Subgrid、IndexedDB／OPFS；Popover API 2027-07-27 前只在附 MWG 指南備援時使用）與 Baseline Widely Available；不引入肥大 Polyfill 或舊式 JS 變通寫法。〔未核對：屬新程式規範，現有頁面尚未使用上述 API〕
 - [MWG 修正] 現代化寫法不得提高頁面現有的 Safari／iOS 最低版本（iOS 跟著系統，舊裝置停更就卡住；Chrome、Edge、Firefox 會自動更新，以 Baseline Widely available 為準）；計算結果、畫面與效能不可變差（Shainy 2026-11-25：「可變好，不可變差」）。外部 CDN 腳本鎖版本並加 SRI。〔已核對：2026-11-25 mwg-modernize 各 PR〕
+- [深淺色] 沒存設定時預設深色（各頁開頁腳本）；`<meta name="color-scheme">` 與 data-theme 由開頁腳本和切換鈕同步；CSS 仍用 data-theme 決定顏色，改用 :has(meta) 與 light-dark() 要等 Safari 最低版本到 15.4／17.5。〔已核對：2026-11-25 theme-meta PR〕
 - [演算法] 步程估算考量分段坡度、地形係數、分段天氣／負重與團體最慢速度（木桶效應）。〔已核對：normSections()〕
 - [演算法] 歷史紀錄少於 3 筆時不擬合勞侖茲函數，改用上下坡速度倍數；另需樣本 ≥20。〔已核對：histDone() L5448〕
 - [演算法] 速度基準 Tobler 與 DIN 33466 各半（wTob 0.5）；輕裝段以 Pandolf 1977 同耗能換算；基準體重固定 50 kg、校準負重 13 kg。〔已核對〕
@@ -27,4 +28,5 @@
 - [Dead End 2｜全域天氣與負重] 早期把晴雨與輕重裝設為整趟行程的單一開關，無法反映午後變天或攻頂輕裝／重裝切換。已廢棄，維持分段可調（Segment-level）。
 - [Dead End 3｜疲勞池] v58 前的疲勞池已整個移除，改用 10% 時間餘裕；不得恢復。
 - [Dead End 4｜只看水平範圍判斷大休] 2026-11-24 修「陡坡慢爬」時試過：前後 3 分鐘內水平不到 30 m 就維持停下，或停下群裡 10 分鐘以上、30 m 內的一段維持停下；兩者都把很陡的慢爬（例：10/29 Garmin 桃山，水平 63 m、高度一路 +42 m）算成停下。只看水平範圍分不開很陡的慢爬和大休，要再看高度是來回還是單向（V114 的做法）。另：看整個停下群判斷也不行，群會延伸到大休前後的慢爬。詳見專案文件「Q6-小休與坡度報告-20261124」。
+- [Dead End 5｜document.write 的替代寫法] 2026-11-25 在 Chrome 實測上山籌碼評估的列印視窗：DOMParser 匯入新開的 about:blank 會是怪異模式（BackCompat），版面可能改變；Blob URL 與 iframe srcdoc 是標準模式，但文件網址變成 blob:…／about:srcdoc，列印頁首頁尾原本顯示的網頁網址會跟著變。只有 document.open／write 同時保留標準模式和原網址，所以保留；寫進去的使用者文字都經 esc()。
 - （新增規則：任何 AI 寫出會報錯或邏輯崩壞的寫法，立刻以一行記在此處。）
