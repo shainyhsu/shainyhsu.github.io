@@ -1,6 +1,6 @@
 # 01_CURRENT_STATE.md（SSSM 語義狀態空間快照）
 
-- 最後更新：2026-11-25 09:33（台灣時間）
+- 最後更新：2026-11-25 12:58（台灣時間）
 - 標記：〔Node 實測〕＝抽出步程試算 CORE（index.html L936–2145）以 Node 22 執行確認；〔程式碼核對〕＝讀 main 分支原始碼確認。兩者都不是瀏覽器實機測試。
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
@@ -14,7 +14,7 @@
 
 ## 2. 已驗證事實（Verified Facts）
 
-- 步程試算現行 V114（2026-11-24 19:34，commit 97533e4，PR #19）：C.timeGrid 的陡坡慢爬規則之前，規則前停下群裡連續 10 分鐘以上、30 m 內、高度來回（淨高度差不到範圍一半）的一段維持停下，大休不再被高度漂移切碎；高度單向變化仍算走路。〔程式碼核對＋Chromium 實測〕前一版 V113（2026-11-24 16:21，commit b038208，PR #18）：單筆校準框的小休、大休改用實走分析讀法，和 V112 上傳歷史 GPX 相同。〔程式碼核對＋Chromium 實測〕前一版 V112（2026-11-24 09:31，commit 4a95c9f）；附件寫的「穩定版 v109」已過時（V109 為 2026-11-23 19:52）。〔程式碼核對〕
+- 步程試算現行 V118（2026-11-25 12:55，commit 84a9610，PR #23；版本行寫 12:54，比合併早 1 分鐘）：含車程的路線保留第一段到最後一段步行（15 分鐘且 800 m 以上），頭尾車程照舊裁掉，兩段步行之間成一段搭車路段（路段新增「搭車」，不算步行時間與小休，車程時間填在起點大休）；摘要、計畫圖、複製全文的距離與爬升只算步行。固定基準 46 筆 0 變動、chk110 17 個情境全過；含車程的 10 筆基準紀錄當路線載入，計畫移動對實際步行的誤差中位數 42%（V117）→ 15%。〔程式碼核對＋Chromium 實測〕V115（2026-11-24 21:32，commit 5abe905，PR #20）：實走分析載入紀錄時，車程（每小時 15 km 以上、合計 500 m 以上，和上傳歷史 GPX 同一判斷）當紀錄中斷；跑步仍算移動。固定基準 46 筆 0 變動；單獨載入與上傳歷史 GPX 的小休 46 筆逐筆相同（13.38／5.64）。〔程式碼核對＋Chromium 實測〕前一版 V114（2026-11-24 19:34，commit 97533e4，PR #19）：C.timeGrid 的陡坡慢爬規則之前，規則前停下群裡連續 10 分鐘以上、30 m 內、高度來回（淨高度差不到範圍一半）的一段維持停下，大休不再被高度漂移切碎；高度單向變化仍算走路。〔程式碼核對＋Chromium 實測〕前一版 V113（2026-11-24 16:21，commit b038208，PR #18）：單筆校準框的小休、大休改用實走分析讀法，和 V112 上傳歷史 GPX 相同。〔程式碼核對＋Chromium 實測〕前一版 V112（2026-11-24 09:31，commit 4a95c9f）；附件寫的「穩定版 v109」已過時（V109 為 2026-11-23 19:52）。〔程式碼核對〕
 - 速度基準 Tobler 與 DIN 33466 各半：wTob 0.5；Tobler 倍率 F 0.734；DIN 平地 3.62 km/h、上坡 468 m/h、下坡 791 m/h；300 m 以上每升高 1,000 m 上坡慢 6.3%。〔Node 實測〕
 - 基準體重 bodyKg 50、校準負重 calKg 13、輕裝 lightKg 2；applyInputs() 每次重設 bodyKg = 50（L4750）。〔Node 實測＋程式碼核對〕
 - 分段可調：normSections() 每段獨立 terr／heavy／rain／run，未設定區間補「一般步道・重裝・晴」。〔Node 實測〕
@@ -39,4 +39,5 @@
 - 已修改檔案（2026-11-25，09:01 合併上線）：步程試算 V116（JSZip 加 SRI；10 處 innerHTML = '' 改 replaceChildren()；?lang= 改用 URLSearchParams；螢幕閱讀器隱藏字改 clip-path）、路線剖面比較 V20（動態載入的 JSZip 加 SRI；2 處 replaceChildren()）、上山籌碼評估 V36（clip-path；列印改 break-after）、markets V20（Chart.js 鎖 4.6.2 並加 SRI；clip-path）、file2md V18（5 個函式庫加 SRI；1 處 replaceChildren()）；7 個 AGENTS.md 與本 repo .ai 的 Popover 說明更正；markets、file2md 新建 .ai/；00 步程試算行號依 V115 位移更新。
 - 不改的項目與理由：toSorted()／toReversed()（需 Safari 16）；structuredClone()（需 Safari 15.4）；light-dark() 與 :has(meta) 對應（需 Safari 17.5／15.4）；word-break: break-word（替代需 Safari 15.4）；pdf.js 的 SRI（需 import map integrity）；document.write（見 02 Dead End 5；Shainy 09:32 確認不接受頁尾網址變亂碼）。
 - 已修改檔案（2026-11-25，09:35 合併上線）：7 頁開頁腳本與切換鈕同步 `<meta name="color-scheme">`（總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37、markets V21、fuel V16、file2md V19）；fuel 新建 .ai/。
-- 下一步唯一動作：待 Shainy 指定（MWG 修正兩輪已合併上線）。
+- 已修改檔案（2026-11-25，12:55 合併上線）：class-hiking-calculator index.html（V118：normSections／runModelV3 帶 ride、handleFile 搭車路段、rideSecs()、walkStats()、rideGaps() 抽出共用、路段表「搭車」、剖面灰底、EN 字串）、README.md、CHANGELOG.md；00 的步程試算行號重算（6,235 行）。Shainy 2026-11-25 10:01 選 A（搭車路段）、車程時間用大休、距離只算步行、頭尾裁掉；12:54 同意合併。
+- 下一步唯一動作：待 Shainy 指定（MWG 修正兩輪與 V118 已合併上線）。
