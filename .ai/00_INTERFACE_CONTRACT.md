@@ -1,7 +1,7 @@
 # 00_INTERFACE_CONTRACT.md（生態系黑盒契約與選擇性讀取索引）
 
 - 專案擁有者：Shainy Hsu（https://github.com/shainyhsu，網站 https://shainyhsu.github.io/）
-- 索引核對：2026-11-24，各 repo main 分支。步程試算 V115（5abe905，2026-11-24 21:32）、路線剖面比較 V19（47cb95b）、上山籌碼評估 V35（64f8943）、總首頁 V9（2ecb565）
+- 索引核對：2026-11-25，main（theme-meta 於 09:35 合併）。總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37。本次修改都在同一行內，行號沒有位移。
 - 短上下文紅線（SSSM）：單次對話峰值 16K–32K tokens。不整檔貼上大型單檔，一律「函數定位＋局部片段（≤150 行／6,000 字元）」。
 - 行號會隨改版漂移：以函數名稱為準。改版後用 `grep -n "function 名稱" index.html` 重新定位，再更新本索引。
 
@@ -9,11 +9,11 @@
 
 | 模組 | Repo | 主檔（行數） | 版本 |
 |---|---|---|---|
-| 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V9 |
-| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,186） | V115 |
-| Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V19 |
-| Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V35 |
-| BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | 本索引未涵蓋 | — |
+| 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V10 |
+| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,186） | V117 |
+| Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V21 |
+| Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V37 |
+| BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | 見各自 repo 的 .ai/00 | V21、V16、V19 |
 
 頁面網址一律為 https://shainyhsu.github.io/<repo>/。
 
@@ -36,7 +36,7 @@
 頁面層（L2177–5895）：
 
 - 載入檔案：handleFile() L4868–4900、readKmz() L4860–4867、applyInputs() L4835–4852
-- 實走紀錄分析：actGrid() L3936–3951（V115：車程當紀錄中斷）、actData() L3965–4069、actView() L4071–4135、renderAct() L4155–4176、handleActFile() L4204–4216
+- 實走紀錄分析：actData() L3965–4069、actView() L4071–4135、renderAct() L4155–4176、handleActFile() L4204–4216
 - 單筆校準框：renderCal() L2806–2872、calBrk() L2873–2913（V113：小休、大休改用實走分析單獨讀這筆紀錄；有「只算其中一段」時只算該段）
 - 過去 GPX 擬合（bind() 內）：histAdd() L5441–5468、histBrk() L5477–5483、histTeam() L5501–5509、histDone() L5512–5566
 - 畫面：renderNow() L3047–3079、renderSections() L3165–3221、renderSummary() L3224–3264、renderProfile() L3340–3512、renderTable() L3524–3548
@@ -65,7 +65,9 @@
 
 - 純前端運算：所有計算在瀏覽器完成，無自架伺服器。對外連線僅：DEM 圖磚（osmhacktw.github.io）、JSZip（cdnjs）、Umami 計數、分享短連結（瀏覽器端加密後存 Google 表單／試算表，金鑰留在網址 # 之後）、籌碼評估隊員填表（Google Apps Script）。
 - 離線優先：〔目標，未實作〕目前無 Service Worker、無 manifest；狀態存 localStorage，未用 IndexedDB／OPFS。
-- Baseline 目標：Baseline Widely Available（MWG 1.0 預設）。新 UI 優先用 `<dialog>`、Popover API、CSS Grid／Subgrid；目前三頁都還沒用到 `<dialog>`／Popover。
+- Baseline 目標：Baseline Widely Available（MWG 1.0 預設）。新 UI 優先用 `<dialog>`、CSS Grid／Subgrid；Popover API 2025-01-27 才進入 Newly available、2027-07-27 才進入 Widely，採用時須照 MWG 指南附備援；目前三頁都還沒用到 `<dialog>`／Popover。
+- 外部腳本：一律鎖版本並加 SRI（integrity＋crossorigin="anonymous"＋referrerpolicy="no-referrer"），雜湊須與 npm 套件原檔逐位元一致。2026-11-25 起：步程試算 JSZip（靜態）、路線剖面比較 JSZip（讀 KMZ 才動態載入）、markets Chart.js 4.6.2、file2md 五個函式庫。
+- 深淺色：`<meta name="color-scheme">` 預設 dark，開頁腳本與切換鈕同步更新；CSS 仍以 data-theme 決定顏色。改用 :has(meta) 對應與 light-dark()，要等各頁 Safari 最低版本到 15.4／17.5。
 
 ## 四、單向資料流契約（Standard TrailJSON）〔目標契約，尚未實作〕
 

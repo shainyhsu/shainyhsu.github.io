@@ -1,13 +1,12 @@
 # 01_CURRENT_STATE.md（SSSM 語義狀態空間快照）
 
-- 最後更新：2026-11-24 21:33（台灣時間）
+- 最後更新：2026-11-25 09:33（台灣時間）
 - 標記：〔Node 實測〕＝抽出步程試算 CORE（index.html L936–2145）以 Node 22 執行確認；〔程式碼核對〕＝讀 main 分支原始碼確認。兩者都不是瀏覽器實機測試。
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
 
-- 當前唯一原子任務：步程試算載入路線時保留全部步行段（Shainy 2026-11-24 20:40：「邏輯上任何車程段都應該裁刪除」；20:4x 選「保留全部步行段」）。現行 V103 起只保留最長一段連續步行，車程在中間時，另一段步行連同車程一起丟掉。
-- 完成驗收條件：載入含中途車程的 GPX，所有步行段都保留、所有車程段都不算步行；路線範圍改為可分段，計畫、時間表、剖面、圖卡、儲存與分享連結都正確；固定基準 46 筆與回歸檢查（chk110）跑過，變動超過 2 分鐘先說明、等 Shainy 同意。
-- 已完成（2026-11-24）：以 V114 重算 46 筆固定基準（專案文件 固定基準測試-V114基準-46筆-20261124.md）。
+- 當前唯一原子任務：MWG 修正。Shainy 2026-11-25 08:04 逐字：「開始修正，在不改變或降低安全、ui、計算、效能的前提下（可變好，不可變差）。」
+- 完成驗收條件：計算結果與畫面不變（main 與分支逐字、逐像素比對）；不提高任何頁面現有的 Safari／iOS 最低版本；外部腳本雜湊與 npm 原檔一致；每個 repo 一個分支、一個 PR，Shainy 說合併才合併。
 - 其他候選（Claude 2026-11-24 盤點時提出，未經 Shainy 確認）：
   1. TrailJSON 轉換器：在 CORE 內新增 toTrailJSON()，由 normSections()＋runModelV3() 換算 00 第四節欄位（fatigueIndex 先留空）。驗收：Node 載入 CORE 對測試 GPX 印出符合契約的陣列，頁面計算結果完全不變。
   2. 刪除 bind() 內體重綁定死碼：mainBodyKg 兩段重複（L5597–5615）與 pBody（L5624–5631），兩個元素已不存在；中間的 pLightKg（L5616–5623）仍在使用，保留。驗收：行為不變，grep 無 mainBodyKg／pBody 殘留。
@@ -36,5 +35,8 @@
 - 已修改檔案（2026-11-24）：shainyhsu.github.io 新增 .ai/00–03、AGENTS.md、CLAUDE.md；另 6 個公開工具 repo 與 1 個私人 repo 新增 AGENTS.md、CLAUDE.md 入口檔；網頁與程式碼未動。
 - 已修改檔案（2026-11-24 16:21）：class-hiking-calculator index.html（calBrk() 新增、renderCal() 小休段改寫、EN 一句）、README.md、CHANGELOG.md（V113）；00 的步程試算行號同步。
 - 已修改檔案（2026-11-24 19:34）：class-hiking-calculator index.html（timeGrid 新增 keep 保護與常數 ZSTAY 30、ZBACK 0.5）、README.md、CHANGELOG.md（V114；版本行寫 19:33，實際合併 19:34:04，差 1 分鐘）；00 的步程試算行號同步。Q5、Q6 報告已出（claude.ai 專案文件）。
-- 已修改檔案（2026-11-24 21:32）：class-hiking-calculator index.html（actGrid() 加車程中斷）、README.md、CHANGELOG.md（V115，版本行和合併同一分鐘）；00 的步程試算行號同步。Q5 的上午 13.0／下午 14.4 差異已查明：空白頁單獨載入把車程算成移動（V115 已修）。回歸紀錄改用手上的三筆（戒茂斯上嘉明湖、桃源谷、安平坑林道），chk110 已更新。
-- 下一步唯一動作：讀 handleFile() 與 vehicleInfo()，提出「路線保留全部步行段」的做法（T.range 改為可分段）給 Shainy 確認後再改。
+- 前一任務（46 筆固定基準以 V114 重算）：claude.ai 專案文件已有「固定基準測試-V114基準-46筆-20261124.md」。
+- 已修改檔案（2026-11-25，09:01 合併上線）：步程試算 V116（JSZip 加 SRI；10 處 innerHTML = '' 改 replaceChildren()；?lang= 改用 URLSearchParams；螢幕閱讀器隱藏字改 clip-path）、路線剖面比較 V20（動態載入的 JSZip 加 SRI；2 處 replaceChildren()）、上山籌碼評估 V36（clip-path；列印改 break-after）、markets V20（Chart.js 鎖 4.6.2 並加 SRI；clip-path）、file2md V18（5 個函式庫加 SRI；1 處 replaceChildren()）；7 個 AGENTS.md 與本 repo .ai 的 Popover 說明更正；markets、file2md 新建 .ai/；00 步程試算行號依 V115 位移更新。
+- 不改的項目與理由：toSorted()／toReversed()（需 Safari 16）；structuredClone()（需 Safari 15.4）；light-dark() 與 :has(meta) 對應（需 Safari 17.5／15.4）；word-break: break-word（替代需 Safari 15.4）；pdf.js 的 SRI（需 import map integrity）；document.write（見 02 Dead End 5；Shainy 09:32 確認不接受頁尾網址變亂碼）。
+- 已修改檔案（2026-11-25，09:35 合併上線）：7 頁開頁腳本與切換鈕同步 `<meta name="color-scheme">`（總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37、markets V21、fuel V16、file2md V19）；fuel 新建 .ai/。
+- 下一步唯一動作：待 Shainy 指定（MWG 修正兩輪已合併上線）。
