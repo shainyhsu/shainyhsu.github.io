@@ -36,6 +36,6 @@
 - 已修改檔案（2026-11-24 16:21）：class-hiking-calculator index.html（calBrk() 新增、renderCal() 小休段改寫、EN 一句）、README.md、CHANGELOG.md（V113）；00 的步程試算行號同步。
 - 已修改檔案（2026-11-24 19:34）：class-hiking-calculator index.html（timeGrid 新增 keep 保護與常數 ZSTAY 30、ZBACK 0.5）、README.md、CHANGELOG.md（V114；版本行寫 19:33，實際合併 19:34:04，差 1 分鐘）；00 的步程試算行號同步。Q5、Q6 報告已出（claude.ai 專案文件）。
 - 前一任務（46 筆固定基準以 V114 重算）：claude.ai 專案文件已有「固定基準測試-V114基準-46筆-20261124.md」。
-- 已修改檔案（2026-11-25，分支 mwg-modernize，PR 待合併）：步程試算 V116（JSZip 加 SRI；10 處 innerHTML = '' 改 replaceChildren()；?lang= 改用 URLSearchParams；螢幕閱讀器隱藏字改 clip-path）、路線剖面比較 V20（動態載入的 JSZip 加 SRI；2 處 replaceChildren()）、上山籌碼評估 V36（clip-path；列印改 break-after）、markets V20（Chart.js 鎖 4.6.2 並加 SRI；clip-path）、file2md V18（5 個函式庫加 SRI；1 處 replaceChildren()）；7 個 AGENTS.md 與本 repo .ai 的 Popover 說明更正；markets、file2md 新建 .ai/；00 步程試算行號依 V115 位移更新。
+- 已修改檔案（2026-11-25，09:01 合併上線）：步程試算 V116（JSZip 加 SRI；10 處 innerHTML = '' 改 replaceChildren()；?lang= 改用 URLSearchParams；螢幕閱讀器隱藏字改 clip-path）、路線剖面比較 V20（動態載入的 JSZip 加 SRI；2 處 replaceChildren()）、上山籌碼評估 V36（clip-path；列印改 break-after）、markets V20（Chart.js 鎖 4.6.2 並加 SRI；clip-path）、file2md V18（5 個函式庫加 SRI；1 處 replaceChildren()）；7 個 AGENTS.md 與本 repo .ai 的 Popover 說明更正；markets、file2md 新建 .ai/；00 步程試算行號依 V115 位移更新。
 - 不改的項目與理由：toSorted()／toReversed()（需 Safari 16）；structuredClone()（需 Safari 15.4，且 JSON 複製會把 NaN 變 null，換掉可能改變計算）；light-dark()（需 Safari 17.5）；深淺色切換只更新 meta（CSS 已宣告 color-scheme，只改 meta 沒有作用，照指南全改會改變預設主題）；document.write（列印流程換寫法有行為風險）；word-break: break-word（替代的 overflow-wrap: anywhere 需 Safari 15.4）。
-- 下一步唯一動作：Shainy 審 7 個 PR，說合併才合併；合併時把各版本行時間改成實際上線時間。
+- 下一步唯一動作：第二輪：深淺色切換同步 `<meta name="color-scheme">`（另開分支與 PR）。
