@@ -1,7 +1,7 @@
 # 00_INTERFACE_CONTRACT.md（生態系黑盒契約與選擇性讀取索引）
 
 - 專案擁有者：Shainy Hsu（https://github.com/shainyhsu，網站 https://shainyhsu.github.io/）
-- 索引核對：2026-11-25，theme-meta 分支（PR 待合併）。總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37。本次修改都在同一行內，行號沒有位移。
+- 索引核對：2026-11-25，main（theme-meta 於 09:35 合併）。總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37。本次修改都在同一行內，行號沒有位移。
 - 短上下文紅線（SSSM）：單次對話峰值 16K–32K tokens。不整檔貼上大型單檔，一律「函數定位＋局部片段（≤150 行／6,000 字元）」。
 - 行號會隨改版漂移：以函數名稱為準。改版後用 `grep -n "function 名稱" index.html` 重新定位，再更新本索引。
 
