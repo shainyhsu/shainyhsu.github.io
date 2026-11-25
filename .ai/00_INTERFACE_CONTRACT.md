@@ -1,7 +1,7 @@
 # 00_INTERFACE_CONTRACT.md（生態系黑盒契約與選擇性讀取索引）
 
 - 專案擁有者：Shainy Hsu（https://github.com/shainyhsu，網站 https://shainyhsu.github.io/）
-- 索引核對：2026-11-24，各 repo main 分支。步程試算 V114（97533e4，2026-11-24 19:34）、路線剖面比較 V19（47cb95b）、上山籌碼評估 V35（64f8943）、總首頁 V9（2ecb565）
+- 索引核對：2026-11-25，mwg-modernize 分支（PR 待合併）。步程試算 V116、路線剖面比較 V20、上山籌碼評估 V36。本次修改都在同一行內，行號沒有位移；步程試算 V115 造成的頁面層位移（約 +15 行）已一併更新。
 - 短上下文紅線（SSSM）：單次對話峰值 16K–32K tokens。不整檔貼上大型單檔，一律「函數定位＋局部片段（≤150 行／6,000 字元）」。
 - 行號會隨改版漂移：以函數名稱為準。改版後用 `grep -n "function 名稱" index.html` 重新定位，再更新本索引。
 
@@ -10,10 +10,10 @@
 | 模組 | Repo | 主檔（行數） | 版本 |
 |---|---|---|---|
 | 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V9 |
-| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,171） | V114 |
-| Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V19 |
-| Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V35 |
-| BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | 本索引未涵蓋 | — |
+| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,186） | V116 |
+| Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V20 |
+| Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V36 |
+| BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | markets、file2md 見各自 repo 的 .ai/00；fuel 尚未建立 | V20、V15、V18 |
 
 頁面網址一律為 https://shainyhsu.github.io/<repo>/。
 
@@ -33,17 +33,17 @@
 - 勞侖茲：extractLorentzSamples() L1441–1475、normLorentzSamples() L1481–1502、fitLorentz() L1504–1541（Gauss-Newton；樣本 <20 回傳 null）
 - 過去紀錄校準：countHeightJumps() L1864–1875、settleStart() L1879–1899、timeGrid() L1900–2034、matchRoute() L2048–2101、calibrate() L2106–2157
 
-頁面層（L2177–5880）：
+頁面層（L2177–5895）：
 
-- 載入檔案：handleFile() L4853–4885、readKmz() L4845–4852、applyInputs() L4820–4837
-- 實走紀錄分析：actData() L3950–4054、actView() L4056–4120、renderAct() L4140–4161、handleActFile() L4189–4201
+- 載入檔案：handleFile() L4868–4900、readKmz() L4860–4867、applyInputs() L4835–4852
+- 實走紀錄分析：actData() L3965–4069、actView() L4071–4135、renderAct() L4155–4176、handleActFile() L4204–4216
 - 單筆校準框：renderCal() L2806–2872、calBrk() L2873–2913（V113：小休、大休改用實走分析單獨讀這筆紀錄；有「只算其中一段」時只算該段）
-- 過去 GPX 擬合（bind() 內）：histAdd() L5426–5453、histBrk() L5462–5468、histTeam() L5486–5494、histDone() L5497–5551
+- 過去 GPX 擬合（bind() 內）：histAdd() L5441–5468、histBrk() L5477–5483、histTeam() L5501–5509、histDone() L5512–5566
 - 畫面：renderNow() L3047–3079、renderSections() L3165–3221、renderSummary() L3224–3264、renderProfile() L3340–3512、renderTable() L3524–3548
-- 圖卡與匯出：buildPicDoc0() L4229–4575、makePictures() L4591–4604、sharePicture() L4764–4779、buildGpx() L4705–4751
+- 圖卡與匯出：buildPicDoc0() L4244–4590、makePictures() L4606–4619、sharePicture() L4779–4794、buildGpx() L4720–4766
 - 儲存：save() L2292–2303、loadSaved() L2366–2390（localStorage）
-- 事件綁定：bind() L4959–5810（852 行，只讀需要的片段）、init() L5812–5876
-- 分享短連結（L5881–6168）：seal() L5943–5947、unseal() L5948–5952、shortLink() L5983–6000
+- 事件綁定：bind() L4974–5825（852 行，只讀需要的片段）、init() L5827–5891
+- 分享短連結（L5896–6183）：seal() L5958–5962、unseal() L5963–5967、shortLink() L5998–6015
 
 ### 2. 路線剖面比較：multi-route-profile-comparison/index.html
 
@@ -65,7 +65,8 @@
 
 - 純前端運算：所有計算在瀏覽器完成，無自架伺服器。對外連線僅：DEM 圖磚（osmhacktw.github.io）、JSZip（cdnjs）、Umami 計數、分享短連結（瀏覽器端加密後存 Google 表單／試算表，金鑰留在網址 # 之後）、籌碼評估隊員填表（Google Apps Script）。
 - 離線優先：〔目標，未實作〕目前無 Service Worker、無 manifest；狀態存 localStorage，未用 IndexedDB／OPFS。
-- Baseline 目標：Baseline Widely Available（MWG 1.0 預設）。新 UI 優先用 `<dialog>`、Popover API、CSS Grid／Subgrid；目前三頁都還沒用到 `<dialog>`／Popover。
+- Baseline 目標：Baseline Widely Available（MWG 1.0 預設）。新 UI 優先用 `<dialog>`、CSS Grid／Subgrid；Popover API 2025-01-27 才進入 Newly available、2027-07-27 才進入 Widely，採用時須照 MWG 指南附備援；目前三頁都還沒用到 `<dialog>`／Popover。
+- 外部腳本：一律鎖版本並加 SRI（integrity＋crossorigin="anonymous"＋referrerpolicy="no-referrer"），雜湊須與 npm 套件原檔逐位元一致。2026-11-25 起：步程試算 JSZip（靜態）、路線剖面比較 JSZip（讀 KMZ 才動態載入）、markets Chart.js 4.6.2、file2md 五個函式庫。
 
 ## 四、單向資料流契約（Standard TrailJSON）〔目標契約，尚未實作〕
 

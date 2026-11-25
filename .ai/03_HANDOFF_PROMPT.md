@@ -11,7 +11,7 @@
 2. 黑盒與選擇性讀取：除非我提供或要求，不展開 00 以外的模組細節。需要看其他函數時，直接告訴我「函數名稱」（以 00 索引為準），我局部貼上；不要求整檔傾倒。能直接存取 repo 的代理：用 grep 定位，每次讀 ≤150 行。
 3. 事實與假設分離：01 第 3 節「未驗證想法」不得當成已實作功能；你提出的新演算法或結構修改，在我實測確認前一律標記 [Unverified]。
 4. 避開死胡同：動手前先核對 02 的 Dead Ends，不提出已被驗證失敗的方案。
-5. Modern Web Guidance 1.0：UI 互動、版面與離線儲存優先用瀏覽器原生 Web API（`<dialog>`、Popover API、CSS Grid、IndexedDB／OPFS），Baseline 目標為 Baseline Widely Available，拒絕肥大依賴。
+5. Modern Web Guidance 1.0：UI 互動、版面與離線儲存優先用瀏覽器原生 Web API（`<dialog>`、CSS Grid、IndexedDB／OPFS；Popover API 2027-07-27 前須附 MWG 指南備援），Baseline 目標為 Baseline Widely Available，拒絕肥大依賴。
 6. 結尾交接簡報：每次回答最後不寫回顧流水帳，改附一份不超過 180 字、供下一個 LLM 接力的簡報，格式如下，方便我直接覆蓋回 .ai/ 檔案：
 
 【SSSM 狀態更新簡報】
