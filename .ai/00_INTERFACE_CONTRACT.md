@@ -1,7 +1,7 @@
 # 00_INTERFACE_CONTRACT.md（生態系黑盒契約與選擇性讀取索引）
 
 - 專案擁有者：Shainy Hsu（https://github.com/shainyhsu，網站 https://shainyhsu.github.io/）
-- 索引核對：2026-11-26，main（步程試算 V119 於 13:23 合併）。總首頁 V10、步程試算 V119（fe836df，2026-11-26 13:23，行號已重算）、路線剖面比較 V21、上山籌碼評估 V37。本次修改都在同一行內，行號沒有位移。
+- 索引核對：2026-11-26，步程試算依 V120 分支；其他頁依 main。總首頁 V10、步程試算 V120（分支 v120-act-part-first，PR #25 待合併；行號依 V120 重算）、路線剖面比較 V21、上山籌碼評估 V37。本次修改都在同一行內，行號沒有位移。
 - 短上下文紅線（SSSM）：單次對話峰值 16K–32K tokens。不整檔貼上大型單檔，一律「函數定位＋局部片段（≤150 行／6,000 字元）」。
 - 行號會隨改版漂移：以函數名稱為準。改版後用 `grep -n "function 名稱" index.html` 重新定位，再更新本索引。
 
@@ -10,7 +10,7 @@
 | 模組 | Repo | 主檔（行數） | 版本 |
 |---|---|---|---|
 | 總首頁（工具清單） | shainyhsu.github.io | index.html（33） | V10 |
-| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,273） | V119 |
+| Hike Time Estimator & Walk Record Analysis（步程試算 與 實走紀錄分析） | class-hiking-calculator | index.html（6,276） | V120（PR #25 待合併） |
 | Multi-Route Profile Comparison（路線剖面比較） | multi-route-profile-comparison | index.html（2,239） | V21 |
 | Leverage Check（上山籌碼評估） | Leveraged-Outdoor-Strategy | index.html（2,320）、member.html（361）、apps-script/Code.gs | V37 |
 | BTC & Gold Live Rates、Jet A Fuel Calculator、File to Markdown | markets、fuel、file2md | 見各自 repo 的 .ai/00 | V21、V16、V19 |
@@ -33,17 +33,17 @@
 - 勞侖茲：extractLorentzSamples() L1453–1487、normLorentzSamples() L1493–1514、fitLorentz() L1516–1553（Gauss-Newton；樣本 <20 回傳 null）
 - 過去紀錄校準：countHeightJumps() L1876–1887、settleStart() L1891–1911、timeGrid() L1912–2046、matchRoute() L2060–2113、calibrate() L2118–2169
 
-頁面層（L2189–5982）：
+頁面層（L2189–5985）：
 
-- 載入檔案：handleFile() L4951–4986（V118：中途車程變搭車路段）、vehicleInfo() L2560–2608、rideSecs() L2612–2622、readKmz() L4943–4950、applyInputs() L4918–4935
-- 實走紀錄分析：actGrid() L3979–3985、actParts() L3987–4000、actPick() L4001–4016、actWhen() L4017–4020（V119：跨日或多段的實走紀錄自動選和路線對得最好的整份或一段）、rideGaps() L4021–4032（V115：車程當紀錄中斷，V118 起校準也用）、actData() L4046–4151、actView() L4153–4217、renderAct() L4237–4259、handleActFile() L4287–4299
+- 載入檔案：handleFile() L4954–4989（V118：中途車程變搭車路段）、vehicleInfo() L2560–2608、rideSecs() L2612–2622、readKmz() L4946–4953、applyInputs() L4921–4938
+- 實走紀錄分析：actGrid() L3979–3985、actParts() L3987–4000、actPick() L4001–4019、actWhen() L4020–4023（V119：跨日或多段的實走紀錄自動選和路線對得最好的一段；V120：有一段對得到就不用整份）、rideGaps() L4024–4035（V115：車程當紀錄中斷，V118 起校準也用）、actData() L4049–4154、actView() L4156–4220、renderAct() L4240–4262、handleActFile() L4290–4302
 - 單筆校準框：renderCal() L2843–2909、calBrk() L2910–2950（V113：小休、大休改用實走分析單獨讀這筆紀錄；有「只算其中一段」時只算該段）
-- 過去 GPX 擬合（bind() 內）：histAdd() L5528–5555、histBrk() L5564–5570、histTeam() L5588–5596、histDone() L5599–5653
+- 過去 GPX 擬合（bind() 內）：histAdd() L5531–5558、histBrk() L5567–5573、histTeam() L5591–5599、histDone() L5602–5656
 - 畫面：renderNow() L3084–3116、renderSections() L3205–3262、renderSummary() L3265–3305、walkStats() L2514–2526（V118：距離、爬升只算步行）、renderProfile() L3381–3555、renderTable() L3567–3591
-- 圖卡與匯出：buildPicDoc0() L4327–4673、makePictures() L4689–4702、sharePicture() L4862–4877、buildGpx() L4803–4849
+- 圖卡與匯出：buildPicDoc0() L4330–4676、makePictures() L4692–4705、sharePicture() L4865–4880、buildGpx() L4806–4852
 - 儲存：save() L2304–2315、loadSaved() L2378–2402（localStorage）
-- 事件綁定：bind() L5060–5912（852 行，只讀需要的片段）、init() L5914–5978
-- 分享短連結（L5983–6270）：seal() L6045–6049、unseal() L6050–6054、shortLink() L6085–6102
+- 事件綁定：bind() L5063–5915（852 行，只讀需要的片段）、init() L5917–5981
+- 分享短連結（L5986–6273）：seal() L6048–6052、unseal() L6053–6057、shortLink() L6088–6105
 
 ### 2. 路線剖面比較：multi-route-profile-comparison/index.html
 
