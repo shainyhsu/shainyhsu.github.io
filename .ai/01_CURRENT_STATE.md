@@ -1,12 +1,13 @@
 # 01_CURRENT_STATE.md（SSSM 語義狀態空間快照）
 
-- 最後更新：2026-11-25 12:58（台灣時間）
+- 最後更新：2026-11-26 13:25（台灣時間）
 - 標記：〔Node 實測〕＝抽出步程試算 CORE（index.html L936–2145）以 Node 22 執行確認；〔程式碼核對〕＝讀 main 分支原始碼確認。兩者都不是瀏覽器實機測試。
 
 ## 1. 逐字任務目標（Verbatim Objective & Done Criteria）
 
-- 當前唯一原子任務：MWG 修正。Shainy 2026-11-25 08:04 逐字：「開始修正，在不改變或降低安全、ui、計算、效能的前提下（可變好，不可變差）。」
-- 完成驗收條件：計算結果與畫面不變（main 與分支逐字、逐像素比對）；不提高任何頁面現有的 Safari／iOS 最低版本；外部腳本雜湊與 npm 原檔一致；每個 repo 一個分支、一個 PR，Shainy 說合併才合併。
+- 當前唯一原子任務：步程試算實走紀錄跨日選段（V119）。Shainy 2026-11-26 12:45 逐字：「實走紀錄跨好幾天或分成多段時，自動用和路線對得最好的那一天那一段。」
+- 完成驗收條件：8B 五天合併檔對「戒茂斯－新武呂溪營地」計畫自動選 11/16 那段（出發 13:58、抵達 18:30）；路線本身就是同一份多日檔時保留整份；單段紀錄、上傳歷史 GPX 行為不變（固定基準 46 筆 0 變動）；每個 repo 一個分支、一個 PR，Shainy 說合併才合併。
+- 前一任務（MWG 修正，Shainy 2026-11-25 08:04）已完成並合併上線。
 - 其他候選（Claude 2026-11-24 盤點時提出，未經 Shainy 確認）：
   1. TrailJSON 轉換器：在 CORE 內新增 toTrailJSON()，由 normSections()＋runModelV3() 換算 00 第四節欄位（fatigueIndex 先留空）。驗收：Node 載入 CORE 對測試 GPX 印出符合契約的陣列，頁面計算結果完全不變。
   2. 刪除 bind() 內體重綁定死碼：mainBodyKg 兩段重複（L5597–5615）與 pBody（L5624–5631），兩個元素已不存在；中間的 pLightKg（L5616–5623）仍在使用，保留。驗收：行為不變，grep 無 mainBodyKg／pBody 殘留。
@@ -28,6 +29,8 @@
 
 - [Unverified] 三工具合併為單一離線 App；未測大於 5 MB GPX 在手機 IndexedDB 的讀寫延遲。
 - [Unverified] TrailJSON 單向資料流（00 第四節）尚未實作；fatigueIndex 需 Shainy 定義。
+- [Unverified] V119 選段規則：相鄰兩點相隔 3 小時以上才分段（手錶暫停等短中斷不切）；在整份與各段中，取對到路線長度在最長者 5% 或 100 m 內、偏離中位數最小者。只用 8B 等少數檔驗證；整夜連續記錄、沒有時間空檔的多日紀錄不會分段。
+- [Unverified] 步程試算跑步 5.7–14 km/h（2026-11-26 Shainy 決定）加漂移檢查（段內 30 秒直線速度中位數 ≥ 5.7）與點密度檢查（平均點距 ≤ 30 秒）：測試副本 R57aD4 完成，6 筆紀錄變動超過 2 分鐘待 Shainy 核准，2026-09-24_18-07 兩段 6.2 km/h 是走是跑待判斷，未進網頁。大休門檻維持 10 分鐘（Shainy 2026-11-26 07:55）。詳見 claude.ai 專案文件「跑步5.7-14與GPS漂移報告-20261126」。
 - [Unverified] SSSM 能省 token 費用：arXiv:2611.05306 證實短上下文下準確率大致不降，未證實總費用下降。第三方分析：論文主實驗（上下文滿額才壓縮）的名目費用，GPT 22 組設定有 21 組、Opus 22 組有 7 組高於不壓縮，主因提示快取失效；單一動作壓縮的費用未量測。
 
 ## 4. 已套用變更與下一步唯一動作（Applied Changes & Immediate Next Action）
@@ -40,4 +43,5 @@
 - 不改的項目與理由：toSorted()／toReversed()（需 Safari 16）；structuredClone()（需 Safari 15.4）；light-dark() 與 :has(meta) 對應（需 Safari 17.5／15.4）；word-break: break-word（替代需 Safari 15.4）；pdf.js 的 SRI（需 import map integrity）；document.write（見 02 Dead End 5；Shainy 09:32 確認不接受頁尾網址變亂碼）。
 - 已修改檔案（2026-11-25，09:35 合併上線）：7 頁開頁腳本與切換鈕同步 `<meta name="color-scheme">`（總首頁 V10、步程試算 V117、路線剖面比較 V21、上山籌碼評估 V37、markets V21、fuel V16、file2md V19）；fuel 新建 .ai/。
 - 已修改檔案（2026-11-25，12:55 合併上線）：class-hiking-calculator index.html（V118：normSections／runModelV3 帶 ride、handleFile 搭車路段、rideSecs()、walkStats()、rideGaps() 抽出共用、路段表「搭車」、剖面灰底、EN 字串）、README.md、CHANGELOG.md；00 的步程試算行號重算（6,235 行）。Shainy 2026-11-25 10:01 選 A（搭車路段）、車程時間用大休、距離只算步行、頭尾裁掉；12:54 同意合併。
-- 下一步唯一動作：待 Shainy 指定（MWG 修正兩輪與 V118 已合併上線）。
+- 已修改檔案（2026-11-26，PR #24 待合併）：class-hiking-calculator index.html（V119：actParts()、actPick()、actWhen() 新增；actData() 只在載入實走紀錄且有路線時選段；renderAct() 狀態列說明用了哪一段；EN 一句；共新增 38 行、原有行不動）、README.md、CHANGELOG.md；00 的步程試算行號依 V119 重算（6,273 行）。〔Chromium 實測〕8B 五天檔＋戒茂斯－溪邊營地 json：V118 抵達算成隔天 13:38，V119 自動選 11/16 13:48–19:46，出發 13:58、抵達 18:30、偏離中位數 5 m；路線為同一份五天檔時與 V118 逐字相同；範例路線＋7 份紀錄與 V118 逐字相同；固定基準 46 筆 0 變動。
+- 下一步唯一動作：Shainy 實機試 PR #24（class-hiking-calculator）與本 repo 的 .ai 更新 PR，說合併才合併。
