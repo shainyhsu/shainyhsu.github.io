@@ -23,6 +23,7 @@
 
 ### 1. 步程試算：class-hiking-calculator/index.html
 
+回歸測試：tests/dirty-gpx.test.js（依函式標記從 index.html 抽出 CORE、vehicleInfo、rideGaps、actGrid–actPick，不依行號）。
 核心模組 CORE（L951–2185）：`var CORE = (function () {…})()`，L2185 為 `module.exports = CORE`。抽出 L948–2185 即可用 Node `require` 測試，不需瀏覽器。
 
 - 軌跡解析：parseTrackText() L1002–1062 → buildTrack() L1065–1079、buildTrackRaw() L1103–1138、cleanElevationByDistance() L1083–1102
